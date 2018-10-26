@@ -49,8 +49,6 @@ public class FileContentUpdater {
                 //line = "";
                 line= estudianteModificado[0]+","+estudianteModificado[1]+","+ estudianteModificado[2]+","+estudianteModificado[3]+","+estudianteModificado[4]+","+estudianteModificado[5];
                 System.out.println(line);
-                
-
             }
             pw.println(line);
             pw.flush();

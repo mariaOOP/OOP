@@ -55,6 +55,11 @@ public class Programas extends javax.swing.JFrame {
         getContentPane().add(jButtonBuscarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 90, -1));
 
         jButtonVerTodosProgramas.setText("Ver todos");
+        jButtonVerTodosProgramas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerTodosProgramasActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonVerTodosProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 90, -1));
 
         jButtonEliminarPrograma.setText("Eliminar");
@@ -87,28 +92,43 @@ public class Programas extends javax.swing.JFrame {
     private void jButtonCrearProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearProgramaActionPerformed
         // TODO add your handling code here:
         new MostrarPrograma(this, rootPaneCheckingEnabled).setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonCrearProgramaActionPerformed
 
     private void jButtonModificarProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarProgramaActionPerformed
         // TODO add your handling code here:
+        BuscarPrograma programa = new BuscarPrograma();
+       
+        programa.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonModificarProgramaActionPerformed
 
     private void jButtonBuscarProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProgramaActionPerformed
         // TODO add your handling code here:
         new BuscarPrograma().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonBuscarProgramaActionPerformed
 
     private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        //this.setVisible(false);
         new VistaPrincipal().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     private void jButtonEliminarProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarProgramaActionPerformed
         // TODO add your handling code here:
         BuscarPrograma programaAEliminar = new BuscarPrograma();
         programaAEliminar.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonEliminarProgramaActionPerformed
+
+    private void jButtonVerTodosProgramasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerTodosProgramasActionPerformed
+        // TODO add your handling code here:
+        TablaProgramas todosProgramas = new TablaProgramas(this, rootPaneCheckingEnabled);
+        todosProgramas.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonVerTodosProgramasActionPerformed
 
     /**
      * @param args the command line arguments

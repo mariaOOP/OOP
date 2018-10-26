@@ -37,6 +37,7 @@ public class BuscarPrograma extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextFieldBuscarPrograma = new javax.swing.JTextField();
         jButtonEliminar = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -47,19 +48,27 @@ public class BuscarPrograma extends javax.swing.JFrame {
                 jButtonBuscarProgramaActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonBuscarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, -1, -1));
+        getContentPane().add(jButtonBuscarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, -1));
 
         jLabel1.setText("Código");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
         getContentPane().add(jTextFieldBuscarPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 250, 30));
 
-        jButtonEliminar.setText("Buscar");
+        jButtonEliminar.setText("Eliminar");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, -1, -1));
+        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
+
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -85,7 +94,7 @@ public class BuscarPrograma extends javax.swing.JFrame {
             mostrarPrograma.setPresencial(presencial);
             mostrarPrograma.disableButtons();
             mostrarPrograma.setVisible(true);
-            this.setVisible(false);
+            this.dispose();
             
         } catch (IOException ex) {
             Logger.getLogger(BuscarPrograma.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,6 +129,36 @@ public class BuscarPrograma extends javax.swing.JFrame {
             Logger.getLogger(BuscarPrograma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        String strBuscarPrograma = jTextFieldBuscarPrograma.getText();
+        try {            
+            String datos[]= gestorProgramas.buscarPrograma(strBuscarPrograma);
+            
+            String codigo = datos[0];
+            String nombre = datos[1];
+            boolean acreditado= Boolean.valueOf(datos[2]);
+            boolean presencial= Boolean.valueOf(datos[3]);
+            boolean online = Boolean.valueOf(datos[4]);
+            MostrarPrograma  mostrarPrograma = new MostrarPrograma(this, true);
+            //ubicar todas estas en una sola función
+            mostrarPrograma.setAcreditado(acreditado);
+            mostrarPrograma.setOnline(online);
+            mostrarPrograma.setCodigo(codigo);
+            mostrarPrograma.setNombre(nombre);
+            mostrarPrograma.setPresencial(presencial);
+            mostrarPrograma.modifyButtons();
+            //mostrarPrograma.deleteButtons();
+            //mostrarPrograma.disableButtons();
+            mostrarPrograma.setVisible(true);
+            this.setVisible(false);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(BuscarPrograma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,7 +198,10 @@ public class BuscarPrograma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBuscarPrograma;
     private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextFieldBuscarPrograma;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import negocio.Programa;
 
@@ -73,15 +74,30 @@ public class GestionProgramas {
         BufferedReader br = new BufferedReader(new FileReader(originalFile));
         String line = null;
         String prog[] = null;
+        
         while ((line = br.readLine()) != null) {
-
-            if (line.contains(codigo)) {
-                prog = line.split(",");
+            String search []= line.split(",");
+            for(int i=0;i<search.length;i++){
+                if (search[i].equals(codigo)) {
+                    prog = line.split(",");
+                }
         //String estudianteModificado [] = line.split(",");
         //line= estudianteModificado[0]+","+estudianteModificado[1]+","+ estudianteModificado[2]+","+estudianteModificado[3]+","+estudianteModificado[4];
             }
 
         }
+        //comprobacion del programa existente
+        
+        if (prog==null){
+            prog = new String[5];
+            System.err.println("El programa no existe");
+            prog[0]="El programa no existe";
+            prog[1]="El programa no existe";
+            prog[2]="false";
+            prog[3]="false";
+            prog[4]="false";
+            }
+        //System.out.println(Arrays.toString(prog));
         return prog;
     }
     
@@ -97,14 +113,13 @@ public class GestionProgramas {
 
             if (line.contains(codigo)) {
                 line = "";
-                
            }
             pw.println(line);
             pw.flush();
         }
         pw.close();
         br.close();
-
+        
         // Delete the original file
         if (!originalFile.delete()) {
             System.out.println("Could not delete file");

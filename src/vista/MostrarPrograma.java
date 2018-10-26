@@ -6,6 +6,9 @@
 package vista;
 
 import gestion.GestionProgramas;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +25,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
     public MostrarPrograma(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.jButtonDelete.setVisible(false);
     }
     
     public void setCodigo(String codigo){
@@ -48,6 +52,11 @@ public class MostrarPrograma extends javax.swing.JDialog {
         this.jButtonGuardar.setVisible(false);
         this.jButtonLimpiar.setVisible(false);
         this.jButtonDelete.setVisible(true);
+    }
+    public void modifyButtons(){
+        this.jButtonGuardar.setVisible(true);
+        this.jButtonLimpiar.setVisible(true);
+        this.jButtonDelete.setVisible(false);
     }
     
     /**
@@ -154,6 +163,11 @@ public class MostrarPrograma extends javax.swing.JDialog {
         getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 80, -1));
 
         jButtonDelete.setText("Eliminar");
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 80, -1));
 
         pack();
@@ -207,8 +221,9 @@ public class MostrarPrograma extends javax.swing.JDialog {
 
     private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
+        //this.setVisible(false);
         new Programas().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
@@ -219,6 +234,16 @@ public class MostrarPrograma extends javax.swing.JDialog {
         this.jCheckBoxPresencial.setSelected(false);
         this.jCheckBoxOnline.setSelected(false);
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+        String codigo=jTextFieldCodigoPrograma.getText();
+        try {
+            this.gestor.eliminarPrograma(codigo);
+        } catch (IOException ex) {
+            Logger.getLogger(MostrarPrograma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
