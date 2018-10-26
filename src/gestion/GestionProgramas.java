@@ -110,7 +110,7 @@ public class GestionProgramas {
 
         String line = null;
         while ((line = br.readLine()) != null) {
-
+            
             if (line.contains(codigo)) {
                 line = "";
            }
