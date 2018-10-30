@@ -5,12 +5,14 @@
  */
 package vista;
 
+import gestion.GestionEstudiantes;
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -19,15 +21,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * @author tato
  */
-public class Estudiante extends javax.swing.JDialog {
+public class Estudiante extends javax.swing.JFrame {
 
     /**
      * Creates new form Estudiante
      */
-    public Estudiante(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    private GestionEstudiantes gestor= new GestionEstudiantes();
+    private String pathImage =null;
+    public Estudiante() {
         initComponents();
-        chargeProgramas();
+        chargeValues();
     }
     // Methode to resize imageIcon with the same size of a Jlabel
     public ImageIcon ResizeImage(String ImagePath)
@@ -39,12 +42,11 @@ public class Estudiante extends javax.swing.JDialog {
         return image;
     }
 
-    private void chargeProgramas(){
+    private void chargeValues(){
         
         String filePath = "src/archivos/misProgramas.txt";
         File file = new File(filePath);
-        String[] carrera=null;
-        ArrayList<String> alist=new ArrayList<String>();
+        ArrayList<String> alist=new ArrayList<>();
         try {
            BufferedReader br = new BufferedReader(new FileReader(file));
            String line = null;
@@ -60,6 +62,10 @@ public class Estudiante extends javax.swing.JDialog {
             System.err.println("error");
             //Logger.getLogger(TextFileDataToJTable.class.getName()).log(Level.SEVERE, null, ex);
         }
+            
+          jLabelNombreFoto.setIcon(ResizeImage("src/archivos/unknown.jpeg"));
+          pathImage = "src/archivos/unknown.jpeg";
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,6 +103,8 @@ public class Estudiante extends javax.swing.JDialog {
         jButtonBuscar = new javax.swing.JButton();
         jButtonRegresar = new javax.swing.JButton();
         jButtonChangePic = new javax.swing.JButton();
+        test = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -132,8 +140,6 @@ public class Estudiante extends javax.swing.JDialog {
 
         jLabel5.setText("Carrera");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
-
-        jLabelNombreFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/archivos/unknown.jpeg"))); // NOI18N
         getContentPane().add(jLabelNombreFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 230, 230));
 
         jLabel6.setText("Apellidos");
@@ -162,6 +168,11 @@ public class Estudiante extends javax.swing.JDialog {
         getContentPane().add(jButtonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 40, 30));
 
         jButtonNuevoEstudiante.setText("Nuevo");
+        jButtonNuevoEstudiante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNuevoEstudianteActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonNuevoEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, 120, -1));
 
         jButtonModificarEstudiante.setText("Modificar");
@@ -177,6 +188,11 @@ public class Estudiante extends javax.swing.JDialog {
         getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 120, -1));
 
         jButtonRegresar.setText("Regresar");
+        jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRegresarActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 110, -1));
 
         jButtonChangePic.setText("Cambiar");
@@ -186,6 +202,21 @@ public class Estudiante extends javax.swing.JDialog {
             }
         });
         getContentPane().add(jButtonChangePic, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, -1, -1));
+
+        test.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testActionPerformed(evt);
+            }
+        });
+        getContentPane().add(test, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 180, -1));
+
+        jButton1.setText("testbutton");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -204,7 +235,7 @@ public class Estudiante extends javax.swing.JDialog {
 
     private void jButtonChangePicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangePicActionPerformed
         JFileChooser file = new JFileChooser();
-        file.setCurrentDirectory(new File(System.getProperty("user.home")));
+        file.setCurrentDirectory(new File(System.getProperty("user.dir")));
         
         //filter the files
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg", "gif", "png");
@@ -215,13 +246,54 @@ public class Estudiante extends javax.swing.JDialog {
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
             jLabelNombreFoto.setIcon(ResizeImage(path));
+            pathImage = path;
+           // System.err.println(path);
         } //if the user click on save in Jfilechooser
+        
         else if (result == JFileChooser.CANCEL_OPTION) {
 
             System.out.println("No File Select");
         }
 
     }//GEN-LAST:event_jButtonChangePicActionPerformed
+
+    private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
+        // TODO add your handling code here:
+        VistaPrincipal vp= new VistaPrincipal();
+        vp.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonRegresarActionPerformed
+
+    private void jButtonNuevoEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoEstudianteActionPerformed
+        // TODO add your handling code here:
+        
+        String codigo = jTextFieldCodigo.getText();
+        String nombre = jTextFieldNombres.getText();
+        String apellidos = jTextFieldApellidos.getText();
+        String programa= (String) jComboBoxCarrera.getSelectedItem();
+        String direccion= jTextFieldDireccion.getText();
+        String celular = jTextFieldCelular.getText();
+        String email= jTextFieldEmail.getText();
+        String []iconPath = pathImage.split("/");
+        
+        String nombreFoto= iconPath[iconPath.length-1];
+        String password = new String(jPasswordField1.getPassword());
+        this.gestor.crearEstudiante(codigo, nombre, apellidos, programa, direccion, password, celular, email, nombreFoto);
+    }//GEN-LAST:event_jButtonNuevoEstudianteActionPerformed
+
+    private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_testActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Icon iconPath = jLabelNombreFoto.getIcon();
+        
+        String iconfilename = jLabelNombreFoto.getIcon().toString();
+        String path[] = iconPath.toString().split("/");
+        String value = path[path.length-1];
+        test.setText(pathImage);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,7 +325,7 @@ public class Estudiante extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Estudiante dialog = new Estudiante(new javax.swing.JFrame(), true);
+                Estudiante dialog = new Estudiante();
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -266,6 +338,7 @@ public class Estudiante extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonChangePic;
@@ -293,5 +366,6 @@ public class Estudiante extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldEstuidianteActual;
     private javax.swing.JTextField jTextFieldNombres;
+    private javax.swing.JTextField test;
     // End of variables declaration//GEN-END:variables
 }

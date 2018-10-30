@@ -47,6 +47,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButtonProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 36, 110, -1));
 
         jButtonEstudiantes.setText("Estudiantes");
+        jButtonEstudiantes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEstudiantesActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonEstudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 75, 110, -1));
 
         jButtonProfesores.setText("Profesores");
@@ -84,6 +89,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit(0);
     }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jButtonEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstudiantesActionPerformed
+        // TODO add your handling code here:
+        new Estudiante().setVisible(true);
+        this.dispose();
+        //this.setVisible(false);
+    }//GEN-LAST:event_jButtonEstudiantesActionPerformed
 
     /**
      * @param args the command line arguments

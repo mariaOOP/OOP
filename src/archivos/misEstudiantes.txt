@@ -1,8 +1,4 @@
-1,dasd,asdasd,f,21,34322355
 
-12,sa,sda,32,m,42342
-2,fddfa,dsaff,34,f,4324234
-2,dsad,dasdasd,23,m,432423
-123, fdsass, sdfgg, 32, f,someshit
 
-errr,gfdd,ghjjgh,32,f,54332
+13,Willi E,Coyote,Dynamite Control,Arizona Desert 13,ddssaa,3222344513,iwllcatchyou@gmail.com,javax.swing.ImageIcon@7330cc9
+dasdsa,asdasdas,adasd,geologia,adasd,asdasd,asdasd,asdasd,unknown.jpeg

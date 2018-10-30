@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 import negocio.Estudiante;
@@ -34,8 +35,8 @@ public class GestionEstudiantes
     }
     
 
-    public void crearEstudiante(String codigo, String nombre, String apellidos, String programa, String direccion, String telefonoFijo, String celular, String email, String nombreFoto) {
-        Estudiante estudiante = new Estudiante(codigo,nombre,apellidos,programa,direccion,telefonoFijo,celular,email,nombreFoto);
+    public void crearEstudiante(String codigo, String nombre, String apellidos, String programa, String direccion, String password, String celular, String email, String nombreFoto) {
+        Estudiante estudiante = new Estudiante(codigo,nombre,apellidos,programa,direccion,password,celular,email,nombreFoto);
         this.guardarEstudiante(estudiante);
     }
 
@@ -64,6 +65,19 @@ public class GestionEstudiantes
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar el estudiante ");
         }
+    }
+    public ArrayList<String[]> buscarTodos() throws FileNotFoundException, IOException{
+        
+        ArrayList<String[]> estudiantes = new ArrayList<>();
+        File originalFile = new File(this.archivoEstudiantes);
+        BufferedReader br = new BufferedReader(new FileReader(originalFile));
+        String line = null;
+        
+        while ((line = br.readLine()) != null) {
+            String search []= line.split(",");
+            estudiantes.add(search);
+        }
+        return estudiantes;
     }
     
     public String[] buscarEstudiante(String codigo) throws FileNotFoundException, IOException {
