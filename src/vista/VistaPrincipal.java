@@ -1,6 +1,7 @@
 
 package vista;
 
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -9,7 +10,7 @@ import javax.swing.JPopupMenu;
 public class VistaPrincipal extends javax.swing.JFrame {
 
     public VistaPrincipal() {
-        initComponents();
+        initComponents();        
     }
 
     /**
@@ -22,38 +23,40 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonProgramas = new javax.swing.JButton();
+        jButtonEstudiantes = new javax.swing.JButton();
+        jButtonProfesores = new javax.swing.JButton();
+        jButtonAsignaturas = new javax.swing.JButton();
         jButtonInscripciones = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(1, 1, 1));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(546, 21, -1, -1));
 
-        jButton1.setText("Programas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonProgramas.setText("Programas");
+        jButtonProgramas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonProgramasActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 36, 100, -1));
+        getContentPane().add(jButtonProgramas, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 36, 110, -1));
 
-        jButton2.setText("Estudiantes");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 75, 100, -1));
+        jButtonEstudiantes.setText("Estudiantes");
+        getContentPane().add(jButtonEstudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 75, 110, -1));
 
-        jButton3.setText("Profesores");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 114, 100, -1));
+        jButtonProfesores.setText("Profesores");
+        getContentPane().add(jButtonProfesores, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 114, 110, -1));
 
-        jButton4.setText("Asignaturas");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 153, 100, -1));
+        jButtonAsignaturas.setText("Asignaturas");
+        getContentPane().add(jButtonAsignaturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 153, 110, -1));
 
         jButtonInscripciones.setText("Inscripciones");
-        getContentPane().add(jButtonInscripciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 192, -1, -1));
+        getContentPane().add(jButtonInscripciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 192, 110, -1));
 
         jButtonSalir.setText("Salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -61,17 +64,21 @@ public class VistaPrincipal extends javax.swing.JFrame {
                 jButtonSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 332, -1, -1));
+        getContentPane().add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/archivos/acmeuniversity.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, -30, 520, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonProgramasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProgramasActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        new Programas().setVisible(true);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+        new Programas().setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_jButtonProgramasActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
@@ -118,12 +125,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonAsignaturas;
+    private javax.swing.JButton jButtonEstudiantes;
     private javax.swing.JButton jButtonInscripciones;
+    private javax.swing.JButton jButtonProfesores;
+    private javax.swing.JButton jButtonProgramas;
     private javax.swing.JButton jButtonSalir;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

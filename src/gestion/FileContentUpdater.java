@@ -81,9 +81,11 @@ public class FileContentUpdater {
             String line = reader.readLine();
              
             while (line != null) 
-            {
-                oldContent = oldContent + line + System.lineSeparator();
-                line = reader.readLine();
+            {   
+                if (!line.equals("")){
+                    oldContent = oldContent + line + System.lineSeparator();
+                    line = reader.readLine();
+                }
             }
              
             //Replacing oldString with newString in the oldContent

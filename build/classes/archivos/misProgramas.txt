@@ -1,0 +1,8 @@
+3,geologia,true,false,false
+2,algebra,true,true,false
+1,dsadasda,false,true,true
+4,dsadasda,false,true,true
+5,dsadasda,false,true,true
+6,dsadasda,false,true,true
+123,Dynamite Control,true,true,false
+45,fdgdfg,true,true,false

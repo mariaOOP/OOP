@@ -35,7 +35,8 @@ public class Programas extends javax.swing.JFrame {
         jButtonRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(168, 300));
+        setMinimumSize(new java.awt.Dimension(168, 350));
+        setPreferredSize(new java.awt.Dimension(120, 350));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonCrearPrograma.setText("Crear ");
@@ -84,7 +85,7 @@ public class Programas extends javax.swing.JFrame {
                 jButtonRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
+        getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 90, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -98,14 +99,16 @@ public class Programas extends javax.swing.JFrame {
     private void jButtonModificarProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarProgramaActionPerformed
         // TODO add your handling code here:
         BuscarPrograma programa = new BuscarPrograma();
-       
+        programa.setModifyButtons();
         programa.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonModificarProgramaActionPerformed
 
     private void jButtonBuscarProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProgramaActionPerformed
         // TODO add your handling code here:
-        new BuscarPrograma().setVisible(true);
+        BuscarPrograma programa= new BuscarPrograma();
+        programa.setSearchButtons();
+        programa.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonBuscarProgramaActionPerformed
 
@@ -118,8 +121,9 @@ public class Programas extends javax.swing.JFrame {
 
     private void jButtonEliminarProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarProgramaActionPerformed
         // TODO add your handling code here:
-        BuscarPrograma programaAEliminar = new BuscarPrograma();
-        programaAEliminar.setVisible(true);
+        BuscarPrograma programa= new BuscarPrograma();
+        programa.setDeleteButtons();
+        programa.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonEliminarProgramaActionPerformed
 

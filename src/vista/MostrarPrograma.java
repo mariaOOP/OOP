@@ -27,26 +27,21 @@ public class MostrarPrograma extends javax.swing.JDialog {
         initComponents();
         this.jButtonDelete.setVisible(false);
     }
-    
-    public void setCodigo(String codigo){
+    public void setAtributos(String codigo,String nombre, boolean acreditado, boolean presencial, boolean online){
         this.jTextFieldCodigoPrograma.setText(codigo);
-    }
-    public void setNombre(String nombre){
         this.jTextFieldNombrePrograma.setText(nombre);
-    }
-    public void setAcreditado(boolean acreditado){
         this.jCheckBoxProgramaAcreditado.setSelected(acreditado);
-    }
-    public void setPresencial(boolean presencial){
-        this.jCheckBoxPresencial.setSelected(presencial);
-    }
-    public void setOnline(boolean online){
+        this.jCheckBoxPresencial.setSelected(acreditado);
         this.jCheckBoxOnline.setSelected(online);
     }
+        
     public void disableButtons(){
         this.jButtonGuardar.setEnabled(false);
         this.jButtonLimpiar.setEnabled(false);
         this.jButtonDelete.setVisible(false);
+        this.jCheckBoxOnline.setEnabled(false);
+        this.jCheckBoxPresencial.setEnabled(false);
+        this.jCheckBoxProgramaAcreditado.setEnabled(false);
     }
     public void deleteButtons(){
         this.jButtonGuardar.setVisible(false);
@@ -81,7 +76,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
         jButtonDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 400));
+        setPreferredSize(new java.awt.Dimension(400, 350));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextFieldNombrePrograma.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -160,7 +155,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
                 jButtonRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 80, -1));
+        getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 220, 90, -1));
 
         jButtonDelete.setText("Eliminar");
         jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -168,7 +163,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
                 jButtonDeleteActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 80, -1));
+        getContentPane().add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 80, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -212,16 +207,13 @@ public class MostrarPrograma extends javax.swing.JDialog {
         boolean acreditado = jCheckBoxProgramaAcreditado.isSelected();
         boolean presencial = jCheckBoxPresencial.isSelected();
         boolean online = jCheckBoxOnline.isSelected();
-        
-        //System.out.println(codigo+nombre+acreditado+presencial+online);
         this.gestor.crearPrograma(codigo, nombre, acreditado, presencial, online);
         
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
-        // TODO add your handling code here:
-        //this.setVisible(false);
+        
         new Programas().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButtonRegresarActionPerformed
