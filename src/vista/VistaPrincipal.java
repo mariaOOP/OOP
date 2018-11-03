@@ -2,6 +2,9 @@
 package vista;
 
 import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -91,10 +94,13 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEstudiantesActionPerformed
-        // TODO add your handling code here:
-        new Estudiante().setVisible(true);
-        this.dispose();
-        //this.setVisible(false);
+        try {
+            new Estudiantes().setVisible(true);
+            this.dispose();
+            //this.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonEstudiantesActionPerformed
 
     /**
@@ -132,6 +138,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VistaPrincipal().setVisible(true);
+                
             }
         });
     }

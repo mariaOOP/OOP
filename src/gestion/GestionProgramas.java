@@ -34,21 +34,17 @@ public class GestionProgramas {
     private void verificaArchivo() {
   
         try {
-            File filex = new File(this.archivoProgramas);
-            if (!filex.exists()) {
-                filex.createNewFile();//lo crea
+            File file = new File(this.archivoProgramas);
+            if (!file.exists()) {
+                file.createNewFile();//lo crea
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Falló la búsqueda de la ruta del archivo ");
         }
     }
     
-    public void crearPrograma(String codigo, String nombre, boolean acreditado, boolean presencial, boolean online) {
-        Programa prog = new Programa(codigo, nombre, acreditado, presencial, online);
-        this.guardarPrograma(prog);
-    }
-
-    private void guardarPrograma(Programa prog) {
+    public void crearPrograma(Programa prog){
+        
         File file;
         FileWriter fr;
         PrintWriter ps;
@@ -56,7 +52,7 @@ public class GestionProgramas {
             file = new File(this.archivoProgramas);
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line = null;
-            String codigo = prog.getCodigo();
+            String codigo = prog.getCodigo(),nombre =prog.getNombre();
             while ((line = br.readLine()) != null) {
                 String search []= line.split(",");
                 for (String search1 : search) {
@@ -75,7 +71,7 @@ public class GestionProgramas {
             JOptionPane.showMessageDialog(null, "Error al guardar el programa ");
         }
     }
-   
+    
     
     public String[] buscarPrograma(String codigo) throws FileNotFoundException, IOException {
 
@@ -92,7 +88,6 @@ public class GestionProgramas {
                 }
             }
         }
-        
         //comprobacion del programa existente
         if (prog==null){
             prog = new String[5];
@@ -106,20 +101,29 @@ public class GestionProgramas {
         return prog;
     }
     
-    public void eliminarPrograma(String codigo) throws FileNotFoundException, IOException{
-        
+    public void modificarPrograma(Programa prog, int opcion) throws FileNotFoundException, IOException{
+        // opcion 1= eliminar
+        // opcion 2= modificar
         File originalFile = new File(this.archivoProgramas);
-        BufferedReader br = new BufferedReader(new FileReader(originalFile));
         File tempFile = new File("/home/tato/Documentos/auxiliar.txt");
+        BufferedReader br = new BufferedReader(new FileReader(originalFile));
         PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
-        
         String line = null;
+        String codigo= prog.getCodigo();
         while ((line = br.readLine()) != null) {
-            if (line.contains(codigo)) {
-                int confir = JOptionPane.showConfirmDialog(null, "Realmente deseas eliminar?", "Eliminar programa", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (confir==2){
-                    line = "";
-                    JOptionPane.showMessageDialog(null, "Programa eliminado");
+            String search[] = line.split(",");
+            for (int i = 0; i < search.length; i++) {
+                if (search[i].equals(codigo)) {
+                    if (opcion == 1) {
+                        int confir = JOptionPane.showConfirmDialog(null, "Realmente deseas eliminar?", "Eliminar programa", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        if (confir == JOptionPane.YES_OPTION) {
+                            line = "";
+                            JOptionPane.showMessageDialog(null, "Programa eliminado");
+                        }
+                    }else if(opcion==2){
+                        line= prog.toString();
+                        JOptionPane.showMessageDialog(null, "Programa modificado");
+                    }
                 }
             }
             if (!line.equals("")){ // para no escribir lineas en blanco en el archivo

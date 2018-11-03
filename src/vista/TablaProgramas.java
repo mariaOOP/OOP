@@ -26,9 +26,10 @@ public class TablaProgramas extends javax.swing.JDialog {
         initComponents();
         chargeProgramas();
     }
+    
     private void chargeProgramas(){
          jTableProgramas.setAutoCreateRowSorter(true);
-         String filePath = "/home/tato/Documentos/misProgramas.txt";
+         String filePath = "src/archivos/misProgramas.txt";
             File file = new File(filePath);
             //new File("/home/tato/Documentos/misProgramas.txt");
             
@@ -92,7 +93,7 @@ public class TablaProgramas extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(jTableProgramas);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 180));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 180));
 
         jButton1.setText("Regresar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

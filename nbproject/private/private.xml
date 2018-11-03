@@ -3,14 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/tato/Descargas/Nivel511/src/negocio/Programa.java</file>
-            <file>file:/home/tato/Descargas/Nivel511/src/negocio/Profesores.java</file>
-            <file>file:/home/tato/Descargas/Nivel511/src/gestion/GestionProgramas.java</file>
-            <file>file:/home/tato/Descargas/Nivel511/src/vista/MostrarPrograma.java</file>
-            <file>file:/home/tato/Descargas/Nivel511/src/vista/TablaProgramas.java</file>
-            <file>file:/home/tato/Descargas/Nivel511/src/vista/BuscarPrograma.java</file>
-            <file>file:/home/tato/Descargas/Nivel511/src/vista/Programas.java</file>
-            <file>file:/home/tato/Descargas/Nivel511/src/vista/VistaPrincipal.java</file>
+            <file>file:/home/tato/Documentos/OOP/Nivel511/src/gestion/GestionEstudiantes.java</file>
+            <file>file:/home/tato/Documentos/OOP/Nivel511/src/vista/Estudiantes.java</file>
+            <file>file:/home/tato/Documentos/OOP/Nivel511/src/vista/TablaProgramas.java</file>
+            <file>file:/home/tato/Documentos/OOP/Nivel511/src/vista/Programas.java</file>
+            <file>file:/home/tato/Documentos/OOP/Nivel511/src/vista/VistaPrincipal.java</file>
+            <file>file:/home/tato/Documentos/OOP/Nivel511/src/vista/TablaEstudiantes.java</file>
+            <file>file:/home/tato/Documentos/OOP/Nivel511/src/gestion/GestionProgramas.java</file>
         </group>
     </open-files>
 </project-private>

@@ -9,6 +9,7 @@ import gestion.GestionProgramas;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import negocio.Programa;
 
 /**
  *
@@ -19,24 +20,26 @@ public class MostrarPrograma extends javax.swing.JDialog {
     /**
      * Creates new form NewJDialog
      */
-    private GestionProgramas gestor= new GestionProgramas();
+    private final GestionProgramas gestor= new GestionProgramas();
     
     
     public MostrarPrograma(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.jButtonDelete.setVisible(false);
+        this.jButtonModificar.setVisible(false);
     }
     public void setAtributos(String codigo,String nombre, boolean acreditado, boolean presencial, boolean online){
         this.jTextFieldCodigoPrograma.setText(codigo);
         this.jTextFieldNombrePrograma.setText(nombre);
         this.jCheckBoxProgramaAcreditado.setSelected(acreditado);
-        this.jCheckBoxPresencial.setSelected(acreditado);
+        this.jCheckBoxPresencial.setSelected(presencial);
         this.jCheckBoxOnline.setSelected(online);
     }
         
     public void disableButtons(){
         this.jButtonGuardar.setEnabled(false);
+        this.jButtonModificar.setVisible(false);
         this.jButtonLimpiar.setEnabled(false);
         this.jButtonDelete.setVisible(false);
         this.jCheckBoxOnline.setEnabled(false);
@@ -47,9 +50,18 @@ public class MostrarPrograma extends javax.swing.JDialog {
         this.jButtonGuardar.setVisible(false);
         this.jButtonLimpiar.setVisible(false);
         this.jButtonDelete.setVisible(true);
+        this.jButtonModificar.setVisible(false);
+
     }
     public void modifyButtons(){
+        this.jButtonGuardar.setVisible(false);
+        this.jButtonModificar.setVisible(true);
+        this.jButtonLimpiar.setVisible(true);
+        this.jButtonDelete.setVisible(false);
+    }
+    public void saveButtons(){
         this.jButtonGuardar.setVisible(true);
+        this.jButtonModificar.setVisible(false);
         this.jButtonLimpiar.setVisible(true);
         this.jButtonDelete.setVisible(false);
     }
@@ -74,6 +86,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jButtonRegresar = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(400, 350));
@@ -165,6 +178,14 @@ public class MostrarPrograma extends javax.swing.JDialog {
         });
         getContentPane().add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 80, -1));
 
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 80, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -190,8 +211,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextFieldNombreProgramaFocusLost
 
     private void jTextFieldNombreProgramaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldNombreProgramaMouseClicked
-        // TODO add your handling code here:
-        //jTextFieldNombrePrograma.setText(null);
+        
     }//GEN-LAST:event_jTextFieldNombreProgramaMouseClicked
 
     private void jCheckBoxProgramaAcreditadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxProgramaAcreditadoActionPerformed
@@ -207,8 +227,9 @@ public class MostrarPrograma extends javax.swing.JDialog {
         boolean acreditado = jCheckBoxProgramaAcreditado.isSelected();
         boolean presencial = jCheckBoxPresencial.isSelected();
         boolean online = jCheckBoxOnline.isSelected();
-        this.gestor.crearPrograma(codigo, nombre, acreditado, presencial, online);
-        
+        //this.gestor.crearPrograma(codigo, nombre, acreditado, presencial, online);
+        Programa prog = new Programa(codigo,nombre,acreditado,presencial,online);
+        this.gestor.crearPrograma(prog);
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
@@ -230,12 +251,34 @@ public class MostrarPrograma extends javax.swing.JDialog {
     private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
         // TODO add your handling code here:
         String codigo=jTextFieldCodigoPrograma.getText();
+        String nombre= jTextFieldNombrePrograma.getText();
+        boolean acreditado = jCheckBoxProgramaAcreditado.isSelected();
+        boolean presencial = jCheckBoxPresencial.isSelected();
+        boolean online = jCheckBoxOnline.isSelected();
+        Programa prog = new Programa(codigo, nombre, acreditado, presencial, online);
         try {
-            this.gestor.eliminarPrograma(codigo);
+            this.gestor.modificarPrograma(prog, 1);
         } catch (IOException ex) {
             Logger.getLogger(MostrarPrograma.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonDeleteActionPerformed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        String codigo=jTextFieldCodigoPrograma.getText();
+        String nombre= jTextFieldNombrePrograma.getText();
+        boolean acreditado = jCheckBoxProgramaAcreditado.isSelected();
+        boolean presencial = jCheckBoxPresencial.isSelected();
+        boolean online = jCheckBoxOnline.isSelected();
+        Programa prog = new Programa(codigo, nombre, acreditado, presencial, online);
+        try {
+            this.gestor.modificarPrograma(prog, 2);
+        } catch (IOException ex) {
+            Logger.getLogger(MostrarPrograma.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+    }//GEN-LAST:event_jButtonModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,15 +296,14 @@ public class MostrarPrograma extends javax.swing.JDialog {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MostrarPrograma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MostrarPrograma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MostrarPrograma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MostrarPrograma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -286,6 +328,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
     private javax.swing.JButton jButtonDelete;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonLimpiar;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JCheckBox jCheckBoxOnline;
     private javax.swing.JCheckBox jCheckBoxPresencial;

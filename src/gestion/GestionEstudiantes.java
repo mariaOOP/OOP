@@ -25,9 +25,9 @@ public class GestionEstudiantes
 
     private void verificaArchivo() {
         try {
-            File filex = new File(this.archivoEstudiantes);
-            if (!filex.exists()) {
-                filex.createNewFile();//lo crea
+            File file = new File(this.archivoEstudiantes);
+            if (!file.exists()) {
+                file.createNewFile();//lo crea
             }
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(null, "Falló la búsqueda de la ruta del archivo ");        
@@ -35,12 +35,8 @@ public class GestionEstudiantes
     }
     
 
-    public void crearEstudiante(String codigo, String nombre, String apellidos, String programa, String direccion, String password, String celular, String email, String nombreFoto) {
-        Estudiante estudiante = new Estudiante(codigo,nombre,apellidos,programa,direccion,password,celular,email,nombreFoto);
-        this.guardarEstudiante(estudiante);
-    }
-
-    private void guardarEstudiante(Estudiante estudiante) {
+     public void crearEstudiante (Estudiante  estudiante){
+        
         File file;
         FileWriter fr;
         PrintWriter ps;
@@ -48,7 +44,8 @@ public class GestionEstudiantes
             file = new File(this.archivoEstudiantes);
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line = null;
-            String codigo = estudiante.getCodigo();while ((line = br.readLine()) != null) {
+            String codigo = estudiante.getCodigo();
+            while ((line = br.readLine()) != null) {
                 String search []= line.split(",");
                 for (String search1 : search) {
                     if (search1.equals(codigo)) {
@@ -66,6 +63,8 @@ public class GestionEstudiantes
             JOptionPane.showMessageDialog(null, "Error al guardar el estudiante ");
         }
     }
+
+    
     public ArrayList<String[]> buscarTodos() throws FileNotFoundException, IOException{
         
         ArrayList<String[]> estudiantes = new ArrayList<>();
@@ -95,22 +94,24 @@ public class GestionEstudiantes
                 }
             }
         }
-        
         //comprobacion del estudiante existente
-        if (estudiante==null){
+        if (estudiante == null) {
             estudiante = new String[9];
             Arrays.fill(estudiante, "no existe el estudiante");
-            }
-            estudiante[8]="uknown.jpg";
+            estudiante[8] = "unknown.jpeg";
+        }
+        
         return estudiante;
     }
-    public void eliminarEstudiante(String codigo) throws FileNotFoundException, IOException{
-        
+    
+    public void modificarEstudiante(Estudiante estudiante,int opcion) throws FileNotFoundException, IOException{
+        //opcion 1 = eliminar
+        //opcion 2 = modificar
         File originalFile = new File(this.archivoEstudiantes);
         BufferedReader br = new BufferedReader(new FileReader(originalFile));
         File tempFile = new File("/home/tato/Documentos/auxiliar.txt");
         PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
-        
+        String codigo= estudiante.getCodigo();
         String line = null;
         while ((line = br.readLine()) != null) {
             if (line.contains(codigo)) {

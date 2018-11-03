@@ -10,27 +10,32 @@ import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import negocio.Estudiante;
 
 /**
  *
  * @author tato
  */
-public class Estudiante extends javax.swing.JFrame {
+public class Estudiantes extends javax.swing.JFrame {
 
     /**
-     * Creates new form Estudiante
+     * Creates new form Estudiantes
      */
     private GestionEstudiantes gestor= new GestionEstudiantes();
     private String pathImage =null;
-    public Estudiante() {
+    
+    public Estudiantes() throws IOException {
         initComponents();
         chargeValues();
+        cargarEstudiante(0);
     }
     // Methode to resize imageIcon with the same size of a Jlabel
     public ImageIcon ResizeImage(String ImagePath)
@@ -41,7 +46,28 @@ public class Estudiante extends javax.swing.JFrame {
         ImageIcon image = new ImageIcon(newImg);
         return image;
     }
+    
+    private void cargarEstudiante(int i) throws IOException{
+        
+        ArrayList<String[]> Estudiantes = gestor.buscarTodos();
+        String[] aux = Estudiantes.get(i);
+        for (int j = 0; j < Estudiantes.size(); j++) {
+            this.jTextFieldCodigo.setText(aux[0]);
+            this.jTextFieldNombres.setText(aux[1]);
+            this.jTextFieldApellidos.setText(aux[2]);
+            this.jComboBoxCarrera.setSelectedItem(aux[3]);
+            this.jTextFieldDireccion.setText(aux[4]);
+            this.jPasswordField1.setText(aux[5]);
+            this.jTextFieldCelular.setText(aux[6]);
+            this.jTextFieldEmail.setText(aux[7]);
+            this.jLabelNombreFoto.setIcon(ResizeImage("src/archivos/" + aux[8]));
+            this.jTextFieldEstudianteActual.setText(Integer.toString(i+1));
+            pathImage = "src/archivos/" + aux[8];
 
+        }
+
+    }
+    
     private void chargeValues(){
         
         String filePath = "src/archivos/misProgramas.txt";
@@ -94,7 +120,7 @@ public class Estudiante extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jTextFieldEmail = new javax.swing.JTextField();
         jButtonAnterior = new javax.swing.JButton();
-        jTextFieldEstuidianteActual = new javax.swing.JTextField();
+        jTextFieldEstudianteActual = new javax.swing.JTextField();
         jButtonSiguiente = new javax.swing.JButton();
         jButtonNuevoEstudiante = new javax.swing.JButton();
         jButtonModificarEstudiante = new javax.swing.JButton();
@@ -104,7 +130,7 @@ public class Estudiante extends javax.swing.JFrame {
         jButtonRegresar = new javax.swing.JButton();
         jButtonChangePic = new javax.swing.JButton();
         test = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jButtonTest = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -140,7 +166,13 @@ public class Estudiante extends javax.swing.JFrame {
 
         jLabel5.setText("Carrera");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, -1, -1));
-        getContentPane().add(jLabelNombreFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 30, 230, 230));
+
+        jLabelNombreFoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelNombreFotoMouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelNombreFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, 230, 230));
 
         jLabel6.setText("Apellidos");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, -1, -1));
@@ -161,19 +193,35 @@ public class Estudiante extends javax.swing.JFrame {
         getContentPane().add(jTextFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 250, -1));
 
         jButtonAnterior.setText("-");
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 40, 30));
-        getContentPane().add(jTextFieldEstuidianteActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 60, -1));
+
+        jTextFieldEstudianteActual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldEstudianteActualActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldEstudianteActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 290, 60, -1));
 
         jButtonSiguiente.setText("+");
+        jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSiguienteActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 40, 30));
 
-        jButtonNuevoEstudiante.setText("Nuevo");
+        jButtonNuevoEstudiante.setText("Guardar");
         jButtonNuevoEstudiante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNuevoEstudianteActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonNuevoEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, 120, -1));
+        getContentPane().add(jButtonNuevoEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 120, -1));
 
         jButtonModificarEstudiante.setText("Modificar");
         getContentPane().add(jButtonModificarEstudiante, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 290, 140, -1));
@@ -182,10 +230,15 @@ public class Estudiante extends javax.swing.JFrame {
         getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 290, 140, -1));
 
         jButtonVerTodos.setText("Ver Todos");
+        jButtonVerTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVerTodosActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonVerTodos, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, 140, -1));
 
         jButtonBuscar.setText("Buscar");
-        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 120, -1));
+        getContentPane().add(jButtonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 290, 120, -1));
 
         jButtonRegresar.setText("Regresar");
         jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
@@ -210,13 +263,13 @@ public class Estudiante extends javax.swing.JFrame {
         });
         getContentPane().add(test, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 180, -1));
 
-        jButton1.setText("testbutton");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTest.setText("testbutton");
+        jButtonTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonTestActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, -1, -1));
+        getContentPane().add(jButtonTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -265,35 +318,102 @@ public class Estudiante extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     private void jButtonNuevoEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoEstudianteActionPerformed
-        // TODO add your handling code here:
         
         String codigo = jTextFieldCodigo.getText();
         String nombre = jTextFieldNombres.getText();
         String apellidos = jTextFieldApellidos.getText();
         String programa= (String) jComboBoxCarrera.getSelectedItem();
         String direccion= jTextFieldDireccion.getText();
+        String password = new String(jPasswordField1.getPassword());
         String celular = jTextFieldCelular.getText();
         String email= jTextFieldEmail.getText();
         String []iconPath = pathImage.split("/");
-        
         String nombreFoto= iconPath[iconPath.length-1];
-        String password = new String(jPasswordField1.getPassword());
-        this.gestor.crearEstudiante(codigo, nombre, apellidos, programa, direccion, password, celular, email, nombreFoto);
+        
+        Estudiante estu = new Estudiante(codigo, nombre, apellidos, programa, direccion, password, celular, email, nombreFoto);
+        this.gestor.crearEstudiante(estu);
     }//GEN-LAST:event_jButtonNuevoEstudianteActionPerformed
 
     private void testActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_testActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTestActionPerformed
         // TODO add your handling code here:
-        Icon iconPath = jLabelNombreFoto.getIcon();
         
-        String iconfilename = jLabelNombreFoto.getIcon().toString();
-        String path[] = iconPath.toString().split("/");
-        String value = path[path.length-1];
-        test.setText(pathImage);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        try {
+            this.cargarEstudiante(0);
+            String []iconPath = pathImage.split("/");
+            String value = iconPath[iconPath.length-1];
+            test.setText(value);
+        } catch (IOException ex) {
+            Logger.getLogger(Estudiantes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonTestActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        // TODO add your handling code here:
+        int cargar= Integer.parseInt(this.jTextFieldEstudianteActual.getText());
+        try {
+            if (cargar<2){
+                cargar=2;
+            }
+            this.cargarEstudiante(cargar-2);
+        } catch (IOException ex) {
+            Logger.getLogger(Estudiantes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
+
+    private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
+        // TODO add your handling code here:
+        
+        int cargar= Integer.parseInt(this.jTextFieldEstudianteActual.getText());
+        try {
+            int secure = this.gestor.buscarTodos().size();
+            if (cargar>=secure){
+                cargar= cargar-1;
+                }
+            this.cargarEstudiante(cargar);
+        } catch (IOException ex) {
+            Logger.getLogger(Estudiantes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonSiguienteActionPerformed
+
+    private void jTextFieldEstudianteActualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEstudianteActualActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldEstudianteActualActionPerformed
+
+    private void jLabelNombreFotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelNombreFotoMouseClicked
+        // TODO add your handling code here:
+        JFileChooser file = new JFileChooser();
+        file.setCurrentDirectory(new File(System.getProperty("user.dir")));
+        
+        //filter the files
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg", "gif", "png");
+        file.addChoosableFileFilter(filter);
+        int result = file.showSaveDialog(null);
+        //if the user click on save in Jfilechooser
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = file.getSelectedFile();
+            String path = selectedFile.getAbsolutePath();
+            jLabelNombreFoto.setIcon(ResizeImage(path));
+            pathImage = path;
+           // System.err.println(path);
+        } //if the user click on save in Jfilechooser
+        
+        else if (result == JFileChooser.CANCEL_OPTION) {
+
+            System.out.println("No File Select");
+        }
+    }//GEN-LAST:event_jLabelNombreFotoMouseClicked
+
+    private void jButtonVerTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVerTodosActionPerformed
+        // TODO add your handling code here:
+        TablaEstudiantes todosEstudiantes= new TablaEstudiantes(null, true);
+        todosEstudiantes.setVisible(true);
+        this.dispose();
+        
+    }//GEN-LAST:event_jButtonVerTodosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,20 +445,23 @@ public class Estudiante extends javax.swing.JFrame {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Estudiante dialog = new Estudiante();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                try {
+                    Estudiantes dialog = new Estudiantes();
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent e) {
+                            System.exit(0);
+                        }
+                    });
+                    dialog.setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(Estudiantes.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonAnterior;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonChangePic;
@@ -347,6 +470,7 @@ public class Estudiante extends javax.swing.JFrame {
     private javax.swing.JButton jButtonNuevoEstudiante;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JButton jButtonSiguiente;
+    private javax.swing.JButton jButtonTest;
     private javax.swing.JButton jButtonVerTodos;
     private javax.swing.JComboBox<String> jComboBoxCarrera;
     private javax.swing.JLabel jLabel1;
@@ -364,7 +488,7 @@ public class Estudiante extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldDireccion;
     private javax.swing.JTextField jTextFieldEmail;
-    private javax.swing.JTextField jTextFieldEstuidianteActual;
+    private javax.swing.JTextField jTextFieldEstudianteActual;
     private javax.swing.JTextField jTextFieldNombres;
     private javax.swing.JTextField test;
     // End of variables declaration//GEN-END:variables
