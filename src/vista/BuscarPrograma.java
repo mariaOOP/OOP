@@ -153,7 +153,7 @@ public class BuscarPrograma extends javax.swing.JFrame {
             boolean acreditado= Boolean.valueOf(datos[2]);
             boolean presencial= Boolean.valueOf(datos[3]);
             boolean online = Boolean.valueOf(datos[4]);
-            MostrarPrograma  mostrarPrograma = new MostrarPrograma(this, true);
+            MostrarPrograma  mostrarPrograma = new MostrarPrograma(null, true);
             mostrarPrograma.setAtributos(codigo, nombre, acreditado, presencial, online);
             mostrarPrograma.modifyButtons();
             mostrarPrograma.setVisible(true);

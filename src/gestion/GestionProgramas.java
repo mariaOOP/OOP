@@ -62,6 +62,7 @@ public class GestionProgramas {
                     }
                 }
             }
+            
             fr = new FileWriter(file, true); //true agrega al final, false borra todo y agrega el nuevo
             ps = new PrintWriter(fr);
             ps.println(prog);
@@ -88,10 +89,15 @@ public class GestionProgramas {
                 }
             }
         }
+        if (prog == null) {
+            JOptionPane.showMessageDialog(null, "no existe el programa");
+
+        }
         //comprobacion del programa existente
         if (prog==null){
+            
             prog = new String[5];
-            System.err.println("El programa no existe");
+            //System.err.println("El programa no existe");
             prog[0]="El programa no existe";
             prog[1]="El programa no existe";
             prog[2]="false";
@@ -115,7 +121,7 @@ public class GestionProgramas {
             for (int i = 0; i < search.length; i++) {
                 if (search[i].equals(codigo)) {
                     if (opcion == 1) {
-                        int confir = JOptionPane.showConfirmDialog(null, "Realmente deseas eliminar?", "Eliminar programa", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        int confir = JOptionPane.showConfirmDialog(null, "Realmente deseas eliminar?", "Eliminar programa", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
                         if (confir == JOptionPane.YES_OPTION) {
                             line = "";
                             JOptionPane.showMessageDialog(null, "Programa eliminado");
