@@ -51,6 +51,7 @@ public class BuscarPrograma extends javax.swing.JFrame {
         jButtonEliminar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonRegresar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(420, 200));
@@ -91,6 +92,9 @@ public class BuscarPrograma extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(5, 4, 1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 190));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -212,6 +216,7 @@ public class BuscarPrograma extends javax.swing.JFrame {
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldBuscarPrograma;
     // End of variables declaration//GEN-END:variables
 

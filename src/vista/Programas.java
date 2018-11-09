@@ -33,6 +33,7 @@ public class Programas extends javax.swing.JFrame {
         jButtonEliminarPrograma = new javax.swing.JButton();
         jButtonModificarPrograma = new javax.swing.JButton();
         jButtonRegresar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(168, 350));
@@ -86,6 +87,9 @@ public class Programas extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 90, -1));
+
+        jPanel1.setBackground(new java.awt.Color(12, 10, 7));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 360));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -177,5 +181,6 @@ public class Programas extends javax.swing.JFrame {
     private javax.swing.JButton jButtonModificarPrograma;
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JButton jButtonVerTodosProgramas;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

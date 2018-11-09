@@ -33,6 +33,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jButtonInscripciones = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(1, 1, 1));
@@ -58,9 +59,19 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButtonEstudiantes, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 75, 110, -1));
 
         jButtonProfesores.setText("Profesores");
+        jButtonProfesores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProfesoresActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonProfesores, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 114, 110, -1));
 
         jButtonAsignaturas.setText("Asignaturas");
+        jButtonAsignaturas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAsignaturasActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAsignaturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 153, 110, -1));
 
         jButtonInscripciones.setText("Inscripciones");
@@ -76,6 +87,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/archivos/acmeuniversity.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, -30, 520, 410));
+
+        jPanel2.setBackground(new java.awt.Color(2, 2, 4));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -102,6 +116,24 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonEstudiantesActionPerformed
+
+    private void jButtonProfesoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProfesoresActionPerformed
+        try {
+            new Profesores().setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonProfesoresActionPerformed
+
+    private void jButtonAsignaturasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAsignaturasActionPerformed
+        try {
+            new Asignaturas().setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonAsignaturasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,5 +184,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 }

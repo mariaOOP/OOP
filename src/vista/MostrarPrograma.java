@@ -87,6 +87,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
         jButtonRegresar = new javax.swing.JButton();
         jButtonDelete = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(400, 350));
@@ -185,6 +186,9 @@ public class MostrarPrograma extends javax.swing.JDialog {
             }
         });
         getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 80, -1));
+
+        jPanel1.setBackground(new java.awt.Color(5, 4, 0));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 270));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -335,6 +339,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
     private javax.swing.JCheckBox jCheckBoxProgramaAcreditado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextFieldCodigoPrograma;
     private javax.swing.JTextField jTextFieldNombrePrograma;
     // End of variables declaration//GEN-END:variables

@@ -1,5 +1,5 @@
 1,Bugs,Bunny,Be funny being bad,Hole 123 WS Hollywood ,asd,33445522,whatsupdoc@gmail.com,bugsbunny.jpeg
 13,Willi E,Coyote,Digging holes,Arizona Desert 322,asd,223456544,iwillcatchyou@gmail.com,wiliecoyote.jpeg
-45,Gallo,Claudio,That’s a joke,Gallinero Star entrada 3,asd,54432344,digodigo@gmail.com,unknown.jpeg
+45,Gallo,Claudio,That’s a joke,Gallinero Star entrada 3,asd,54432344,digodigo@gmail.com,galloclaudio.png
 3,Piolin,Webster,I Thought I Saw a Pussy Cat,Grannys place ,asd,5433456,itawatudytat@gmail.com,piolin.png
 34,Marvin,Martian,How to take shoots without die,Planet Uranus,asdsd,5433344,lethome@gmail.com,marvin.png
