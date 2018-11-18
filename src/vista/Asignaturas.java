@@ -2,20 +2,17 @@ package vista;
 
 import gestion.GestionAsignaturas;
 import gestion.GestionProfesores;
-import java.awt.List;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import negocio.Asignatura;
 
 public class Asignaturas extends javax.swing.JDialog {
@@ -26,19 +23,21 @@ public class Asignaturas extends javax.swing.JDialog {
     public Asignaturas() throws IOException {
         initComponents();
         cargarValoresIniciales();
-       // cargarAsignaturas(0);
+        cargarAsignaturas(0);
     }
     
     private void cargarAsignaturas(int i) throws IOException {
 
         ArrayList<String[]> Asignaturas = gestor.buscarTodas();
         String[] aux = Asignaturas.get(i);
+        
         for (int j = 0; j < Asignaturas.size(); j++) {
             this.jTextFieldCodigo.setText(aux[0]);
             this.jTextFieldNombre.setText(aux[1]);
             this.jTextFieldAsignaturaActual.setText(Integer.toString(i + 1));
-
+            
         }
+        cargarTablaAsignaProfe(this.jTextFieldCodigo.getText());
     }
 
     private Asignatura crearAsignatura() {
@@ -82,6 +81,7 @@ public class Asignaturas extends javax.swing.JDialog {
     private void cargarTablaAsignaProfe(String codigo) throws FileNotFoundException, IOException{
         
         jTableProfesores.setAutoCreateRowSorter(true);
+        
         DefaultTableModel model = (DefaultTableModel) jTableProfesores.getModel();
         ArrayList<String[]> asignaProfe = this.gestor.buscarTodosAsignaProfe();
         for(int i=0;i<asignaProfe.size();i++){
@@ -123,8 +123,6 @@ public class Asignaturas extends javax.swing.JDialog {
         jButtonBuscar = new javax.swing.JButton();
         jButtonRegresar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jButtontest = new javax.swing.JButton();
-        jTextFieldtest = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
 
@@ -184,10 +182,20 @@ public class Asignaturas extends javax.swing.JDialog {
         getContentPane().add(jButtonEliminarProfesor, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 230, 140, -1));
 
         jButtonAnterior.setText("-");
+        jButtonAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnteriorActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 50, 30));
         getContentPane().add(jTextFieldAsignaturaActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 50, -1));
 
         jButtonSiguiente.setText("+");
+        jButtonSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSiguienteActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 50, 30));
 
         jButtonGuardar.setText("Guardar");
@@ -225,19 +233,9 @@ public class Asignaturas extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(184, 133, 70));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButtontest.setText("test");
-        jButtontest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtontestActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButtontest, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 61, -1, -1));
-        jPanel1.add(jTextFieldtest, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 120, -1));
-
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 940, 100));
 
-        jPanel2.setBackground(new java.awt.Color(4, 3, 2));
+        jPanel2.setBackground(new java.awt.Color(236, 154, 73));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("Profesor");
@@ -277,7 +275,7 @@ public class Asignaturas extends javax.swing.JDialog {
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         String codigo = jTextFieldCodigo.getText();
         Asignatura asignatura = crearAsignatura();
-        
+        this.gestor.crearAsignatura(asignatura);
         DefaultTableModel model = (DefaultTableModel) jTableProfesores.getModel();
         ArrayList<String> cedulasProfesores = new ArrayList<>();
         for (int count = 0; count < model.getRowCount(); count++) {
@@ -286,8 +284,7 @@ public class Asignaturas extends javax.swing.JDialog {
         for(int i =0; i< cedulasProfesores.size(); i++){
             String cedula= cedulasProfesores.get(i);
             try {
-                this.gestor.crearAsignaProfe(codigo, cedula);
-                this.gestor.crearAsignatura(asignatura);
+                this.gestor.crearAsignaProfe(codigo, cedula);                
             } catch (IOException ex) {
                 Logger.getLogger(Asignaturas.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -314,15 +311,31 @@ public class Asignaturas extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
-    private void jButtontestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtontestActionPerformed
+    private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
+       
+        int cargar= Integer.parseInt(this.jTextFieldAsignaturaActual.getText());
         try {
-            // TODO add your handling code here:
-            String test= jTextFieldtest.getText();
-            cargarTablaAsignaProfe(test);
+            int secure = this.gestor.buscarTodas().size();
+            if (cargar>=secure){
+                cargar= cargar-1;
+                }
+            this.cargarAsignaturas(cargar);
         } catch (IOException ex) {
-            Logger.getLogger(Asignaturas.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Profesores.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButtontestActionPerformed
+    }//GEN-LAST:event_jButtonSiguienteActionPerformed
+
+    private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
+        int cargar= Integer.parseInt(this.jTextFieldAsignaturaActual.getText());
+        try {
+            if (cargar<2){
+                cargar=2;
+            }
+            this.cargarAsignaturas(cargar-2);
+        } catch (IOException ex) {
+            Logger.getLogger(Profesores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     
     public static void main(String args[]) {
@@ -379,7 +392,6 @@ public class Asignaturas extends javax.swing.JDialog {
     private javax.swing.JButton jButtonRegresar;
     private javax.swing.JButton jButtonSiguiente;
     private javax.swing.JButton jButtonVerTodas;
-    private javax.swing.JButton jButtontest;
     private javax.swing.JComboBox<String> jComboBoxCreditos;
     private javax.swing.JComboBox<String> jComboBoxProfesor;
     private javax.swing.JLabel jLabel1;
@@ -394,6 +406,5 @@ public class Asignaturas extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldAsignaturaActual;
     private javax.swing.JTextField jTextFieldCodigo;
     private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldtest;
     // End of variables declaration//GEN-END:variables
 }

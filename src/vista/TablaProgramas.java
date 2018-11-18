@@ -100,7 +100,7 @@ public class TablaProgramas extends javax.swing.JDialog {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(10, 7, 2));
+        jPanel1.setBackground(new java.awt.Color(216, 144, 23));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 270));
 
         pack();

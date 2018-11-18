@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
 import gestion.GestionProgramas;
@@ -11,10 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import negocio.Programa;
 
-/**
- *
- * @author tato
- */
+
 public class MostrarPrograma extends javax.swing.JDialog {
 
     /**
@@ -187,7 +179,7 @@ public class MostrarPrograma extends javax.swing.JDialog {
         });
         getContentPane().add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 80, -1));
 
-        jPanel1.setBackground(new java.awt.Color(5, 4, 0));
+        jPanel1.setBackground(new java.awt.Color(219, 185, 52));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 270));
 
         pack();

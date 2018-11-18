@@ -278,10 +278,10 @@ public class Estudiantes extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonChangePic, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(14, 10, 7));
+        jPanel1.setBackground(new java.awt.Color(220, 189, 18));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 1000, 140));
 
-        jPanel2.setBackground(new java.awt.Color(1, 1, 1));
+        jPanel2.setBackground(new java.awt.Color(214, 171, 34));
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1000, 260));
 
         pack();
@@ -313,7 +313,6 @@ public class Estudiantes extends javax.swing.JFrame {
             String path = selectedFile.getAbsolutePath();
             jLabelNombreFoto.setIcon(ResizeImage(path));
             pathImage = path;
-           // System.err.println(path);
         } //if the user click on save in Jfilechooser
         
         else if (result == JFileChooser.CANCEL_OPTION) {
@@ -378,7 +377,6 @@ public class Estudiantes extends javax.swing.JFrame {
             String path = selectedFile.getAbsolutePath();
             jLabelNombreFoto.setIcon(ResizeImage(path));
             pathImage = path;
-           // System.err.println(path);
         } //if the user click on save in Jfilechooser
         
         else if (result == JFileChooser.CANCEL_OPTION) {

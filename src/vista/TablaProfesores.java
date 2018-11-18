@@ -98,9 +98,11 @@ public class TablaProfesores extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTableProfesores);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 12, 710, 200));
+
+        jLabel1.setBackground(new java.awt.Color(227, 171, 39));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 190, 210));
 
-        jPanel1.setBackground(new java.awt.Color(13, 9, 4));
+        jPanel1.setBackground(new java.awt.Color(207, 126, 26));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {

@@ -1,7 +1,6 @@
-10,Be funny being bad,true,true,false
 1,Digging holes,true,true,false
 12,Handling Dynamite,true,false,true
 11,I Thought I Saw a Pussy Cat,false,true,false
 8,That’s a joke,true,false,true
 45,How to take shoots without die,true,true,false
-3232,Dance Twist,true,true,false
+2,Explosive chemical 101,true,false,true

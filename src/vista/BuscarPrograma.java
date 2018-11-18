@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
 import gestion.GestionProgramas;
@@ -10,10 +5,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author tato
- */
+
 public class BuscarPrograma extends javax.swing.JFrame {
 
     /**
@@ -93,7 +85,7 @@ public class BuscarPrograma extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(5, 4, 1));
+        jPanel1.setBackground(new java.awt.Color(204, 158, 22));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 190));
 
         pack();

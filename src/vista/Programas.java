@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vista;
 
-/**
- *
- * @author tato
- */
 public class Programas extends javax.swing.JFrame {
 
     /**
@@ -88,7 +79,7 @@ public class Programas extends javax.swing.JFrame {
         });
         getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 90, -1));
 
-        jPanel1.setBackground(new java.awt.Color(12, 10, 7));
+        jPanel1.setBackground(new java.awt.Color(230, 156, 45));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 360));
 
         pack();
@@ -109,7 +100,6 @@ public class Programas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonModificarProgramaActionPerformed
 
     private void jButtonBuscarProgramaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarProgramaActionPerformed
-        // TODO add your handling code here:
         BuscarPrograma programa= new BuscarPrograma();
         programa.setSearchButtons();
         programa.setVisible(true);

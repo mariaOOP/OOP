@@ -1,5 +1,7 @@
 package vista;
 
+import gestion.GestionAsignaturas;
+import gestion.GestionInscripciones;
 import gestion.GestionProfesores;
 import java.awt.Image;
 import java.io.BufferedReader;
@@ -14,11 +16,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import negocio.Profesor;
 
 public class Profesores extends javax.swing.JFrame {
 
-    private GestionProfesores gestor = new GestionProfesores();
+    private GestionProfesores gestorProfesores = new GestionProfesores();
+    private GestionAsignaturas gestorAsignaturas = new GestionAsignaturas();
+    private GestionInscripciones gestorInscripciones = new GestionInscripciones();
+
     private String pathImage = null;
 
     public Profesores() throws IOException {
@@ -38,7 +44,7 @@ public class Profesores extends javax.swing.JFrame {
 
     private void cargarProfesores(int i) throws IOException {
 
-        ArrayList<String[]> Profesores = gestor.buscarTodos();
+        ArrayList<String[]> Profesores = gestorProfesores.buscarTodos();
         String[] aux = Profesores.get(i);
         for (int j = 0; j < Profesores.size(); j++) {
             this.jTextFieldCedula.setText(aux[0]);
@@ -47,10 +53,29 @@ public class Profesores extends javax.swing.JFrame {
             this.jComboBoxPrograma.setSelectedItem(aux[3]);
             this.jLabelNombreFoto.setIcon(ResizeImage("src/archivos/" + aux[4]));
             this.jTextFieldProfesorActual.setText(Integer.toString(i + 1));
+            this.traerAsignatura(this.jTextFieldCedula.getText());
             pathImage = "src/archivos/" + aux[4];
         }
     }
-    
+
+    private void traerAsignatura(String cedula) throws IOException {
+        ArrayList<String[]> listaAsignaturas = this.gestorAsignaturas.asignaturasPorCedula(cedula);
+        jTableAsignaturas.setAutoCreateRowSorter(true);
+        
+        DefaultTableModel model = (DefaultTableModel) jTableAsignaturas.getModel();
+        for (int i = 0; i < listaAsignaturas.size(); i++) {
+            String[] aux = listaAsignaturas.get(i);
+            String codigoAsignatura=aux[0];
+            int estudiantes = this.gestorInscripciones.contarAlumnos(codigoAsignatura, cedula);
+            String[] asignatura=this.gestorAsignaturas.buscarAsignatura(codigoAsignatura);
+            String tabla[] = {asignatura[0], asignatura[1], asignatura[2],Integer.toString(estudiantes)};
+            model.addRow(tabla);
+        }
+        
+        
+       
+    }
+
     private Profesor crearProfesor() {
         String cedula = jTextFieldCedula.getText();
         String nombre = jTextFieldNombre.getText();
@@ -112,7 +137,7 @@ public class Profesores extends javax.swing.JFrame {
         jButtonRegresar = new javax.swing.JButton();
         jLabelNombreFoto = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableAsignaturas = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -142,7 +167,7 @@ public class Profesores extends javax.swing.JFrame {
 
         getContentPane().add(jComboBoxPrograma, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, 270, -1));
 
-        jPanel1.setBackground(new java.awt.Color(1, 1, 1));
+        jPanel1.setBackground(new java.awt.Color(227, 183, 51));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanel1.add(jTextFieldProfesorActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 60, -1));
 
@@ -205,7 +230,7 @@ public class Profesores extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 1150, 120));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 1200, 130));
 
         jLabelNombreFoto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -214,20 +239,25 @@ public class Profesores extends javax.swing.JFrame {
         });
         getContentPane().add(jLabelNombreFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 170, 160));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableAsignaturas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-
+                "Codigo Asignatura", "NombreAsignatura", "Creditos Asignatura", "Número de Estudiantes"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jTableAsignaturas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableAsignaturasMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableAsignaturas);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, 520, 170));
 
-        jPanel2.setBackground(new java.awt.Color(6, 6, 6));
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1150, 200));
+        jPanel2.setBackground(new java.awt.Color(224, 146, 77));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1200, 210));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -237,24 +267,24 @@ public class Profesores extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCedulaActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        Profesor profesor= crearProfesor();
-        this.gestor.crearProfesor(profesor);
+        Profesor profesor = crearProfesor();
+        this.gestorProfesores.crearProfesor(profesor);
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         String cedula = JOptionPane.showInputDialog(this, "Inserte la cédula");
         try {
-            int posicion= this.gestor.buscarPosicion(cedula);
+            int posicion = this.gestorProfesores.buscarPosicion(cedula);
             cargarProfesores(posicion);
         } catch (IOException ex) {
             Logger.getLogger(Profesores.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         Profesor profesor = crearProfesor();
         try {
-            this.gestor.modificarProfesor(profesor,2);
+            this.gestorProfesores.modificarProfesor(profesor, 2);
         } catch (IOException ex) {
             Logger.getLogger(Profesores.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -263,7 +293,7 @@ public class Profesores extends javax.swing.JFrame {
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
         Profesor profesor = crearProfesor();
         try {
-            this.gestor.modificarProfesor(profesor,1);
+            this.gestorProfesores.modificarProfesor(profesor, 1);
             cargarProfesores(0);
         } catch (IOException ex) {
             Logger.getLogger(Profesores.class.getName()).log(Level.SEVERE, null, ex);
@@ -274,7 +304,7 @@ public class Profesores extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser file = new JFileChooser();
         file.setCurrentDirectory(new File(System.getProperty("user.dir")));
-        
+
         //filter the files
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "jpg", "gif", "png");
         file.addChoosableFileFilter(filter);
@@ -285,9 +315,8 @@ public class Profesores extends javax.swing.JFrame {
             String path = selectedFile.getAbsolutePath();
             jLabelNombreFoto.setIcon(ResizeImage(path));
             pathImage = path;
-           // System.err.println(path);
+            // System.err.println(path);
         } //if the user click on save in Jfilechooser
-        
         else if (result == JFileChooser.CANCEL_OPTION) {
 
             System.out.println("No File Select");
@@ -295,35 +324,39 @@ public class Profesores extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelNombreFotoMouseClicked
 
     private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
-        VistaPrincipal vp= new VistaPrincipal();
+        VistaPrincipal vp = new VistaPrincipal();
         vp.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     private void jButtonAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnteriorActionPerformed
-        int cargar= Integer.parseInt(this.jTextFieldProfesorActual.getText());
+        int cargar = Integer.parseInt(this.jTextFieldProfesorActual.getText());
         try {
-            if (cargar<2){
-                cargar=2;
+            if (cargar < 2) {
+                cargar = 2;
             }
-            this.cargarProfesores(cargar-2);
+            this.cargarProfesores(cargar - 2);
         } catch (IOException ex) {
             Logger.getLogger(Profesores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonAnteriorActionPerformed
 
     private void jButtonSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSiguienteActionPerformed
-        int cargar= Integer.parseInt(this.jTextFieldProfesorActual.getText());
+        int cargar = Integer.parseInt(this.jTextFieldProfesorActual.getText());
         try {
-            int secure = this.gestor.buscarTodos().size();
-            if (cargar>=secure){
-                cargar= cargar-1;
-                }
+            int secure = this.gestorProfesores.buscarTodos().size();
+            if (cargar >= secure) {
+                cargar = cargar - 1;
+            }
             this.cargarProfesores(cargar);
         } catch (IOException ex) {
             Logger.getLogger(Profesores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonSiguienteActionPerformed
+
+    private void jTableAsignaturasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAsignaturasMouseClicked
+        
+    }//GEN-LAST:event_jTableAsignaturasMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -386,7 +419,7 @@ public class Profesores extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableAsignaturas;
     private javax.swing.JTextField jTextFieldApellidos;
     private javax.swing.JTextField jTextFieldCedula;
     private javax.swing.JTextField jTextFieldNombre;

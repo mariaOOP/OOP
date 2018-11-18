@@ -1,14 +1,8 @@
-
 package vista;
 
-import java.awt.Color;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
 
 public class VistaPrincipal extends javax.swing.JFrame {
 
@@ -75,6 +69,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().add(jButtonAsignaturas, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 153, 110, -1));
 
         jButtonInscripciones.setText("Inscripciones");
+        jButtonInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInscripcionesActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonInscripciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 192, 110, -1));
 
         jButtonSalir.setText("Salir");
@@ -88,7 +87,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/archivos/acmeuniversity.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, -30, 520, 410));
 
-        jPanel2.setBackground(new java.awt.Color(2, 2, 4));
+        jPanel2.setBackground(new java.awt.Color(224, 168, 35));
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 380));
 
         pack();
@@ -134,6 +133,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
             Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonAsignaturasActionPerformed
+
+    private void jButtonInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInscripcionesActionPerformed
+        new Inscripciones().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonInscripcionesActionPerformed
 
     /**
      * @param args the command line arguments

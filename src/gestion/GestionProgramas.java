@@ -14,7 +14,9 @@ import negocio.Programa;
 public class GestionProgramas {
 
     private final String archivoProgramas;
-
+    private GestionEstudiantes gestionEstudiantes = new GestionEstudiantes();
+    private GestionProfesores gestionProfesores = new GestionProfesores();
+    
     public GestionProgramas() {
 
         this.archivoProgramas = "src/archivos/misProgramas.txt"; //rutaRelativa
@@ -94,23 +96,28 @@ public class GestionProgramas {
         // opcion 1= eliminar
         // opcion 2= modificar
         File archivoOriginal = new File(this.archivoProgramas);
-        File archivoTemporal = new File("src/archivos/auxiliar.txt");
+        File archivoTemporal = new File("src/archivos/auxiliarProgramas.txt");
         BufferedReader br = new BufferedReader(new FileReader(archivoOriginal));
         PrintWriter pw = new PrintWriter(new FileWriter(archivoTemporal));
         String linea = null;
         String codigo= prog.getCodigo();
+        String nombre=prog.getNombre();
         while ((linea = br.readLine()) != null) {
             String busqueda[] = linea.split(",");
             for (int i = 0; i < busqueda.length; i++) {
-                if (busqueda[0].equals(codigo)) {
+                if (busqueda[i].equals(codigo)) {
                     if (opcion == 1) {
                         int confir = JOptionPane.showConfirmDialog(null, "Realmente deseas eliminar?", "Eliminar programa", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
                         if (confir == JOptionPane.YES_OPTION) {
                             linea = "";
+                            gestionEstudiantes.modificarPrograma(nombre, opcion);
+                            gestionProfesores.modificarPrograma(nombre, opcion);
                             JOptionPane.showMessageDialog(null, "Programa eliminado");
                         }
-                    }else if(opcion==2){
-                        linea= prog.toString();
+                    } else if (opcion == 2) {
+                        linea = prog.toString();
+                        gestionEstudiantes.modificarPrograma(codigo, opcion);
+                        gestionProfesores.modificarPrograma(codigo, opcion);
                         JOptionPane.showMessageDialog(null, "Programa modificado");
                     }
                 }

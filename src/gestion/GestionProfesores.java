@@ -16,7 +16,8 @@ import negocio.Profesor;
 public class GestionProfesores {
 
     private final String archivoProfesores;
-
+    private GestionInscripciones gestion= new GestionInscripciones();
+    
     public GestionProfesores() {
         this.archivoProfesores = "src/archivos/misProfesores.txt"; //rutaRelativa
         this.verificaArchivo();
@@ -121,12 +122,51 @@ public class GestionProfesores {
         }
         return posicion;
     }
+    public void modificarPrograma(String codigoPrograma, int opcion) throws FileNotFoundException, IOException{
+        // opcion 1= eliminar
+        // opcion 2= modificar
+        File archivoOriginal = new File(this.archivoProfesores);
+        File archivoTemporal = new File("src/archivos/auxiliarProfesores.txt");
+        BufferedReader br = new BufferedReader(new FileReader(archivoOriginal));
+        PrintWriter pw = new PrintWriter(new FileWriter(archivoTemporal));
+        String linea = null;
+        while ((linea = br.readLine()) != null) {
+            String busqueda[] = linea.split(",");
 
+            if (busqueda[3].equals(codigoPrograma)) {
+                if (opcion == 1) {
+                    linea = "";
+                    gestion.modificarEstudiante(busqueda[0], opcion);
+                }
+            } else if (opcion == 2) {
+                linea = busqueda[0] + "," + busqueda[1] + "," + busqueda[2] + "," + codigoPrograma + "," + busqueda[4];
+                //JOptionPane.showMessageDialog(null, "Profesores modificado");
+            }
+
+            if (!linea.equals("")) { // para no escribir lineas en blanco en el archivo
+                pw.println(linea);
+            }
+            pw.flush();// descarga el buffer que usamos para guardar los datos 
+        }
+        pw.close();
+        br.close();
+
+        // elimina el archivo original
+        if (!archivoOriginal.delete()) {
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el archivo ");
+            return;
+        }
+        // renombra el archivo temporal para que tenga el nombre del archivo original.
+        if (!archivoTemporal.renameTo(archivoOriginal)) {
+            JOptionPane.showMessageDialog(null, "Error al renombrar el archivo ");
+        }
+    }
+    
     public void modificarProfesor(Profesor profesor, int opcion) throws FileNotFoundException, IOException {
         // opcion 1= eliminar
         // opcion 2= modificar
         File archivoOriginal = new File(this.archivoProfesores);
-        File archivoTemporal = new File("src/archivos/auxiliar.txt");
+        File archivoTemporal = new File("src/archivos/auxiliarProfesores.txt");
         BufferedReader br = new BufferedReader(new FileReader(archivoOriginal));
         PrintWriter pw = new PrintWriter(new FileWriter(archivoTemporal));
         String linea = null;
@@ -139,10 +179,12 @@ public class GestionProfesores {
                         int confir = JOptionPane.showConfirmDialog(null, "Realmente deseas eliminar?", "Eliminar profesor", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
                         if (confir == JOptionPane.YES_OPTION) {
                             linea = "";
+                            gestion.modificarProfesor(cedula,opcion);
                             JOptionPane.showMessageDialog(null, "Profesor eliminado");
                         }
                     } else if (opcion == 2) {
                         linea = profesor.toString();
+                        gestion.modificarProfesor(cedula,opcion);
                         JOptionPane.showMessageDialog(null, "Profesor modificado");
                     }
                 }

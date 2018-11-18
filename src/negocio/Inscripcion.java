@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package negocio;
 
-/**
- *
- * @author tato
- */
 public class Inscripcion {
     private String idEstudiante;
     private String idProfesor;
@@ -38,7 +29,7 @@ public class Inscripcion {
         this.idAsignatura = idAsignatura;
     }
 
-    public Inscripcion(String idEstudiante, String idProfesor, String idAsignatura) {
+    public Inscripcion(String idEstudiante, String idAsignatura,String idProfesor) {
         this.idEstudiante = idEstudiante;
         this.idProfesor = idProfesor;
         this.idAsignatura = idAsignatura;
@@ -46,7 +37,7 @@ public class Inscripcion {
 
     @Override
     public String toString() {
-        return idEstudiante + "," + idProfesor + "," + idAsignatura;
+        return idEstudiante + "," + idAsignatura + "," + idProfesor;
     }
     
 }

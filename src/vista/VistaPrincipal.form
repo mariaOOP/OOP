@@ -95,6 +95,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Inscripciones"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonInscripcionesActionPerformed"/>
+      </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="12" y="192" width="110" height="-1"/>
@@ -129,7 +132,7 @@
     <Container class="javax.swing.JPanel" name="jPanel2">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="4" green="2" red="2" type="rgb"/>
+          <Color blue="23" green="a8" red="e0" type="rgb"/>
         </Property>
       </Properties>
       <Constraints>
